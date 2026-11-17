@@ -3,47 +3,82 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#090f25">
+<meta name="theme-color" content="#0a1028">
 <title>تحدّي المفتاح الذهبي</title>
 <style>
-:root{--bg:#090f25;--panel:#151f40;--cyan:#59f0eb;--gold:#ffd166;--pink:#ff6db5;--white:#f4f7ff}
+:root{--bg:#0a1028;--panel:#172347;--cyan:#61f4ec;--gold:#ffd166;--pink:#ff6fae;--text:#f5f7ff}
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:radial-gradient(ellipse at 50% 0%,#293365 0%,#111a38 48%,#080d20 100%);color:var(--white);font-family:Tahoma,Arial,sans-serif}
-body{padding:14px 12px 28px;display:flex;justify-content:center}
-.app{width:min(100%,560px)}
-header{text-align:center;margin:3px 0 12px}.tag{font-size:11px;letter-spacing:2px;color:var(--cyan);font-weight:bold}h1{font-size:clamp(25px,6vw,36px);margin:6px 0;text-shadow:0 0 20px #59f0eb55}.sub{font-size:13px;color:#c7d2f3;line-height:1.8}
-.hud{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.stat{background:linear-gradient(145deg,#202d56,#151c38);border:1px solid #ffffff20;border-radius:14px;padding:9px 6px;text-align:center;box-shadow:0 7px 22px #0003}.stat small{display:block;color:#b8c7e9;font-size:11px;margin-bottom:5px}.stat strong{font-size:21px;color:var(--gold);font-variant-numeric:tabular-nums}
-.board-frame{padding:8px;border-radius:19px;background:linear-gradient(130deg,#59f0ebaa,#a17cff77,#ffd16677);box-shadow:0 0 32px #59f0eb22}.board{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));grid-template-rows:repeat(7,minmax(0,1fr));gap:3px;aspect-ratio:9/7;width:100%;padding:5px;border-radius:13px;background:linear-gradient(135deg,#101a36,#172448);touch-action:manipulation}
-.cell{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;min-height:0;border-radius:6px;background:linear-gradient(145deg,#25345c,#1a2749);box-shadow:inset 0 0 0 1px #8fb6ff12}.wall{background:linear-gradient(145deg,#303c63,#182343);box-shadow:inset 0 0 0 1px #788bb633,inset 0 3px 7px #ffffff0b}.wall:after{content:"";position:absolute;left:18%;right:18%;top:20%;height:2px;background:#b2c5ed22;border-radius:4px}.goal{background:linear-gradient(145deg,#342a62,#251c4a);box-shadow:inset 0 0 0 1px #b89bff77,0 0 12px #a78bfa33}.keytile{background:linear-gradient(145deg,#59451b,#302844);box-shadow:inset 0 0 0 1px #ffd16688,0 0 14px #ffd16638}.hazard{background:linear-gradient(145deg,#562641,#321c3a);box-shadow:inset 0 0 0 1px #ff6d9e66}.floor-mark{position:absolute;opacity:.25;font-size:clamp(8px,1.4vw,12px)}
-.key{font-size:clamp(17px,4vw,27px);filter:drop-shadow(0 0 7px #ffd166);animation:keyfloat 1.25s ease-in-out infinite}.door{font-size:clamp(16px,3.5vw,23px);filter:drop-shadow(0 0 8px #bca5ff)}
-.hero{position:relative;width:78%;height:82%;max-width:38px;max-height:42px;min-width:18px;min-height:19px;display:flex;align-items:center;justify-content:center;z-index:3;animation:heroBob .7s ease-in-out infinite alternate;filter:drop-shadow(0 0 7px #59f0eb)}.hero .head{position:absolute;top:2%;width:48%;height:43%;border-radius:50%;background:linear-gradient(145deg,#fff0d2,#ffc99a);border:1.5px solid #fff6}.hero .visor{position:absolute;top:13%;width:42%;height:19%;border-radius:7px;background:#152c52;border:1px solid #8dfff3}.hero .body{position:absolute;bottom:10%;width:67%;height:51%;border-radius:9px 9px 6px 6px;background:linear-gradient(145deg,#9dfff2,#16a6bd);border:1px solid #d8fffa}.hero .body:after{content:"";position:absolute;right:-17%;top:15%;width:18%;height:60%;border-radius:4px;background:#ffd166}.hero .foot{position:absolute;bottom:0;width:25%;height:19%;border-radius:3px;background:#ffd166}.hero .f1{right:19%}.hero .f2{left:19%}
-.guard{font-size:clamp(15px,3.3vw,22px);filter:drop-shadow(0 0 8px #ff517d);animation:guardPulse .65s ease-in-out infinite alternate}
-@keyframes heroBob{from{transform:translateY(1px)}to{transform:translateY(-3px)}}@keyframes keyfloat{0%,100%{transform:translateY(1px) rotate(-8deg)}50%{transform:translateY(-3px) rotate(8deg)}}@keyframes guardPulse{from{transform:scale(.92)}to{transform:scale(1.08)}}
-.tip{text-align:center;font-size:12px;color:#d1dcfa;line-height:1.9;margin:10px 0}.controls{direction:ltr;display:grid;grid-template-columns:repeat(3,68px);grid-template-rows:repeat(2,58px);gap:8px;justify-content:center;margin:14px auto 10px}.pad{border:1px solid #8dfaf077;border-radius:14px;background:linear-gradient(145deg,#304474,#192448);color:#fff;font-size:23px;font-weight:bold;box-shadow:0 5px 0 #070c1e,0 0 16px #59f0eb22;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-tap-highlight-color:transparent}.pad span{display:block;font-size:10px;color:#aafaf3;margin-top:1px}.pad:active{transform:translateY(3px);box-shadow:0 2px 0 #070c1e}.up{grid-column:2;grid-row:1}.left{grid-column:1;grid-row:2}.down{grid-column:2;grid-row:2}.right{grid-column:3;grid-row:2}
-.actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:12px 0}.action{border:0;border-radius:13px;padding:12px 17px;font-weight:bold;font-size:14px;cursor:pointer}.primary{background:linear-gradient(90deg,#ffd166,#ffae4e);color:#22172b;box-shadow:0 5px 17px #ffd16630}.secondary{background:#27365e;color:#fff;border:1px solid #ffffff24}.toast{min-height:34px;text-align:center;color:var(--cyan);font-size:13px;font-weight:bold;line-height:1.7;padding:4px}.rules{background:#131c38;border:1px solid #ffffff18;border-radius:14px;padding:11px 13px;font-size:12px;color:#cbd6f3;line-height:1.9}.rules b{color:var(--gold)}footer{text-align:center;font-size:10px;color:#8493bd;margin-top:13px}
-@media(max-width:430px){.hud{grid-template-columns:repeat(2,1fr)}}@media(max-width:390px){.controls{grid-template-columns:60px 60px 60px;grid-template-rows:54px 54px}.hud strong{font-size:19px}}
+html,body{margin:0;min-height:100%;background:radial-gradient(ellipse at 50% 0%,#293a70 0%,#151e40 43%,#090e22 100%);color:var(--text);font-family:Tahoma,Arial,sans-serif}
+body{padding:10px 12px 24px;display:flex;justify-content:center}
+.app{width:min(100%,610px)}
+header{text-align:center;margin:0 0 9px}
+.tag{font-size:10px;letter-spacing:2px;color:var(--cyan);font-weight:bold}
+h1{font-size:clamp(23px,5.5vw,32px);margin:4px 0 3px;text-shadow:0 0 18px #61f4ec44}
+.sub{font-size:12px;color:#cfdbfa;line-height:1.7}
+.board-frame{padding:7px;border-radius:19px;background:linear-gradient(130deg,#61f4ecb0,#a17cff88,#ffd16688);box-shadow:0 0 28px #61f4ec22}
+.board{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));grid-template-rows:repeat(7,minmax(0,1fr));gap:3px;aspect-ratio:9/7;width:100%;padding:5px;border-radius:13px;background:linear-gradient(135deg,#101a36,#1b294f);touch-action:manipulation}
+.cell{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;min-height:0;border-radius:8px;background:linear-gradient(145deg,#293b68,#1b2a50);box-shadow:inset 0 0 0 1px #9fc8ff12;overflow:visible}
+.cell:before{content:"";position:absolute;width:4px;height:4px;border-radius:50%;background:#9ae8ff55;left:25%;top:26%;box-shadow:12px 10px 0 #9ae8ff22}
+.wall{background:linear-gradient(145deg,#354568,#172440);box-shadow:inset 0 0 0 2px #829ac333,inset 0 4px 8px #ffffff0b}
+.wall:before{display:none}
+.goal{background:linear-gradient(145deg,#423478,#241e50);box-shadow:inset 0 0 0 1px #c4aaff99,0 0 12px #a78bfa44}
+.keytile{background:linear-gradient(145deg,#68501b,#352b40);box-shadow:inset 0 0 0 2px #ffd166cc,0 0 18px #ffd16666}
+.hazard{background:linear-gradient(145deg,#5b2746,#321d3d);box-shadow:inset 0 0 0 1px #ff83b577}
+.key,.door{font-size:clamp(22px,5vw,32px);line-height:1;z-index:2;filter:drop-shadow(0 0 8px #ffd166);animation:float 1.1s ease-in-out infinite alternate}
+.door{filter:drop-shadow(0 0 8px #c7aaff)}
+.hero{z-index:5;position:relative;font-size:clamp(25px,5vw,36px);line-height:1;filter:drop-shadow(0 0 8px #60fff4);animation:bob .48s ease-in-out infinite alternate;transform-origin:center}
+.hero:after{content:"";position:absolute;inset:1px -5px -2px;border:2px solid #65fff077;border-radius:50%;z-index:-1;box-shadow:0 0 13px #61f4ec88}
+.guard{font-size:clamp(22px,4.7vw,30px);z-index:3;filter:drop-shadow(0 0 8px #ff517d);animation:guard .35s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(1px) rotate(-4deg)}to{transform:translateY(-4px) rotate(4deg)}}
+@keyframes float{from{transform:translateY(2px) rotate(-9deg)}to{transform:translateY(-3px) rotate(8deg)}}
+@keyframes guard{from{transform:scale(.92)}to{transform:scale(1.08)}}
+.controls{direction:ltr;display:grid;grid-template-columns:repeat(3,60px);grid-template-rows:repeat(2,51px);gap:6px;justify-content:center;margin:8px auto 4px}
+.pad{border:1px solid #8dfaf088;border-radius:13px;background:linear-gradient(145deg,#344a7d,#19274b);color:#fff;font-size:22px;font-weight:bold;box-shadow:0 4px 0 #070c1e,0 0 13px #59f0eb20;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-tap-highlight-color:transparent;padding:2px}
+.pad span{display:block;font-size:9px;color:#aafaf3;font-weight:normal;margin-top:0}
+.pad:active{transform:translateY(3px);box-shadow:0 1px 0 #070c1e}
+.up{grid-column:2;grid-row:1}.left{grid-column:1;grid-row:2}.down{grid-column:2;grid-row:2}.right{grid-column:3;grid-row:2}
+.control-note{text-align:center;font-size:10px;color:#b9c9ef;line-height:1.6;margin:2px 0 7px}
+.hud{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:6px 0 8px}
+.stat{min-width:0;background:linear-gradient(145deg,#202e55,#151e3b);border:1px solid #ffffff20;border-radius:11px;padding:6px 4px;text-align:center;box-shadow:0 4px 13px #0002}
+.stat small{display:block;color:#b8c7e9;font-size:9px;margin-bottom:2px;white-space:nowrap}
+.stat strong{display:block;font-size:17px;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#lives{font-size:14px;letter-spacing:-2px}
+.toast{min-height:29px;text-align:center;color:var(--cyan);font-size:12px;font-weight:bold;line-height:1.7;padding:3px}
+.actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:6px 0 9px}
+.action{border:0;border-radius:12px;padding:10px 15px;font-weight:bold;font-size:13px;cursor:pointer}
+.primary{background:linear-gradient(90deg,#ffd166,#ffae4e);color:#22172b;box-shadow:0 4px 13px #ffd16630}
+.secondary{background:#27365e;color:#fff;border:1px solid #ffffff24}
+.rules{background:#131c38;border:1px solid #ffffff18;border-radius:13px;padding:8px 11px;font-size:11px;color:#cbd6f3;line-height:1.8}
+.rules b{color:var(--gold)}
+footer{text-align:center;font-size:9px;color:#8493bd;margin-top:9px}
+@media(max-width:420px){body{padding:8px 9px 18px}.board-frame{padding:5px}.board{gap:2px;padding:4px}.cell{border-radius:6px}.controls{grid-template-columns:56px 56px 56px;grid-template-rows:49px 49px;gap:5px;margin-top:6px}.stat{padding:5px 2px}.stat small{font-size:8px}.stat strong{font-size:15px}#lives{font-size:12px}}
+@media(max-width:330px){.hud{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
 <main class="app">
-<header><div class="tag">GOLDEN KEY • FIX 04</div><h1>تحدّي المفتاح الذهبي</h1><div class="sub">اجمع المفتاح، تجنّب الحارس، وارجع للبوابة بأقل عدد من الحركات!</div></header>
-<section class="hud">
- <div class="stat"><small>الحركات</small><strong id="moves">0</strong></div>
- <div class="stat"><small>المفتاح</small><strong id="keyState">لم يُجمع</strong></div>
+<header>
+ <div class="tag">GOLDEN KEY • MAZE CHALLENGE</div>
+ <h1>تحدّي المفتاح الذهبي</h1>
+ <div class="sub">اجمع المفتاح من الجهة اليمنى وارجع للبوابة البنفسجية بأقل عدد من الحركات</div>
+</header>
+<div class="board-frame"><div class="board" id="board" aria-label="متاهة المفتاح الذهبي"></div></div>
+<div class="controls" aria-label="أزرار الحركة">
+ <button class="pad up" data-move="down" aria-label="تحريك الشخصية للأسفل">↑<span>ينزل</span></button>
+ <button class="pad left" data-move="right" aria-label="تحريك الشخصية لليمين">←<span>يمين</span></button>
+ <button class="pad down" data-move="up" aria-label="تحريك الشخصية للأعلى">↓<span>يصعد</span></button>
+ <button class="pad right" data-move="left" aria-label="تحريك الشخصية لليسار">→<span>يسار</span></button>
+</div>
+<div class="control-note">تنبيه: التحكم معكوس بالكامل — كل زر يحرّك الشخصية بالاتجاه المكتوب تحته</div>
+<section class="hud" aria-label="إحصائيات اللعبة">
+ <div class="stat"><small>عدد الحركات</small><strong id="moves">0</strong></div>
+ <div class="stat"><small>المفتاح الذهبي</small><strong id="keyState">0 / 1</strong></div>
  <div class="stat"><small>المحاولات</small><strong id="lives">❤️❤️❤️</strong></div>
  <div class="stat"><small>أفضل نتيجة</small><strong id="best">—</strong></div>
 </section>
-<div class="board-frame"><div class="board" id="board" role="img" aria-label="متاهة المفتاح الذهبي"></div></div>
-<div class="tip">ابدأ من الشخصية الزرقاء أعلى اليسار، تحرّك بالأسهم الطبيعية على الشاشة أو لوحة المفاتيح.<br>كل ضغطة تُحسب، حتى لو اصطدمت بجدار.</div>
-<div class="controls" aria-label="أزرار الحركة">
- <button class="pad up" data-dir="up">↑<span>فوك</span></button>
- <button class="pad left" data-dir="left">←<span>يسار</span></button>
- <button class="pad down" data-dir="down">↓<span>جوه</span></button>
- <button class="pad right" data-dir="right">→<span>يمين</span></button>
-</div>
-<div class="toast" id="toast" role="status" aria-live="polite">اجمع المفتاح الذهبي 🔑 ثم ارجع إلى البوابة 🚪</div>
-<div class="actions"><button class="action primary" id="restart">↻ إعادة المحاولة</button><button class="action secondary" id="share">🏆 مشاركة النتيجة</button></div>
-<div class="rules"><b>قواعد التحدي</b><br>١. اجمع المفتاح الذهبي الموجود أعلى يمين المتاهة.<br>٢. ارجع إلى البوابة البنفسجية أسفل اليسار.<br>٣. انتبه للحارس الأحمر في الممر الأوسط؛ إذا لمسَك تخسر محاولة وترجع للبداية.<br>٤. عندك ٣ محاولات. اختَر طريقك وحقّق أقل عدد من الحركات.</div>
+<div class="toast" id="toast" role="status" aria-live="polite">شخصيتك تبدأ أسفل اليسار. اجمع المفتاح 🔑 ثم ارجع للبوابة 🚪</div>
+<div class="actions"><button class="action secondary" id="restart">↻ إعادة المحاولة</button><button class="action primary" id="share">🏆 شارك نتيجتك</button></div>
+<div class="rules"><b>طريقة اللعب</b><br>١. حرّك الشخصية الزرقاء من أسفل اليسار إلى المفتاح الذهبي أعلى اليمين؛ الطريق مفتوح ويمكن الوصول إليه.<br>٢. ارجع إلى البوابة البنفسجية أعلى اليسار بعد جمع المفتاح.<br>٣. تجنّب الحارس الأحمر في الممر الأوسط. كل ضغطة تُحسب، حتى لو اصطدمت بجدار.<br>٤. لديك ٣ محاولات. أقصر طريق للفوز هو ١٨ حركة.</div>
 <footer>GOLDEN KEY ARCADE CHALLENGE</footer>
 </main>
 <script>
@@ -55,63 +90,71 @@ const keyEl=document.getElementById('keyState');
 const livesEl=document.getElementById('lives');
 const bestEl=document.getElementById('best');
 const toast=document.getElementById('toast');
-const layout=[
+// Every walkable cell is connected to the start, key, and exit.
+const maze=[
  '#########',
  '#...#...#',
  '#.#...#.#',
  '#.#.#...#',
- '#...#.#.#',
+ '#...#...#',
  '#.......#',
  '#########'
 ];
-const start={x:1,y:1};
+const start={x:1,y:5};
 const keyPos={x:7,y:1};
-const doorPos={x:1,y:5};
-// The patrol stays in the side passage, so the key and exit always have a clear route.
+const exitPos={x:1,y:1};
 const patrol=[{x:5,y:3},{x:6,y:3},{x:7,y:3},{x:6,y:3}];
-let player,guardStep,turns,moves,lives,hasKey,won,over,best;
-let lastGuardMove=0;
-const isWall=(x,y)=>!layout[y]||layout[y][x]==='#';
-try{best=Number(localStorage.getItem('goldenKeyBestV2')||0)}catch(e){best=0}
-function makeHero(){const h=document.createElement('div');h.className='hero';h.innerHTML='<span class="head"></span><span class="visor"></span><span class="body"></span><span class="foot f1"></span><span class="foot f2"></span>';return h}
-function render(){
+let player,guardIndex,moves,lives,hasKey,won,over,best;
+const blocked=(x,y)=>!maze[y]||maze[y][x]==='#';
+try{best=Number(localStorage.getItem('goldenKeyBestV3')||0)}catch(e){best=0}
+function makePlayer(){const s=document.createElement('span');s.className='hero';s.textContent='🧑‍🚀';s.setAttribute('aria-label','شخصية اللاعب');return s}
+function draw(){
  board.replaceChildren();
- const guard=patrol[guardStep];
+ const guard=patrol[guardIndex];
  for(let y=0;y<7;y++)for(let x=0;x<9;x++){
-  const cell=document.createElement('div');cell.className='cell'+(isWall(x,y)?' wall':'');
-  if(!isWall(x,y)&&x===doorPos.x&&y===doorPos.y){cell.classList.add('goal');const d=document.createElement('span');d.className='door';d.textContent='🚪';cell.append(d)}
-  if(!isWall(x,y)&&x===keyPos.x&&y===keyPos.y&&!hasKey){cell.classList.add('keytile');const k=document.createElement('span');k.className='key';k.textContent='🔑';cell.append(k)}
-  if(!isWall(x,y)&&x===guard.x&&y===guard.y){cell.classList.add('hazard');const g=document.createElement('span');g.className='guard';g.textContent='👾';cell.append(g)}
-  if(!isWall(x,y)&&x===player.x&&y===player.y){cell.append(makeHero())}
-  board.append(cell);
+  const tile=document.createElement('div');
+  tile.className='cell'+(blocked(x,y)?' wall':'');
+  if(!blocked(x,y)&&x===exitPos.x&&y===exitPos.y){tile.classList.add('goal');const d=document.createElement('span');d.className='door';d.textContent='🚪';tile.append(d)}
+  if(!blocked(x,y)&&x===keyPos.x&&y===keyPos.y&&!hasKey){tile.classList.add('keytile');const k=document.createElement('span');k.className='key';k.textContent='🔑';tile.append(k)}
+  if(!blocked(x,y)&&x===guard.x&&y===guard.y){tile.classList.add('hazard');const g=document.createElement('span');g.className='guard';g.textContent='👾';tile.append(g)}
+  if(x===player.x&&y===player.y)tile.append(makePlayer());
+  board.append(tile);
  }
 }
-function updateHud(){movesEl.textContent=moves;keyEl.textContent=hasKey?'مجموع ✓':'لم يُجمع';livesEl.textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives);bestEl.textContent=best?best+' حركة':'—'}
-function reset(){player={...start};guardStep=0;turns=0;moves=0;lives=3;hasKey=false;won=false;over=false;lastGuardMove=0;toast.textContent='اجمع المفتاح الذهبي 🔑 ثم ارجع إلى البوابة 🚪';updateHud();render()}
-function respawn(){lives--;player={...start};if(lives<=0){lives=0;over=true;toast.textContent='انتهت المحاولات! اضغط إعادة المحاولة.'}else toast.textContent=`الحارس أمسكك! رجعت للبداية. باقي ${lives} محاولات.`;updateHud();render()}
+function updateHud(){movesEl.textContent=moves;keyEl.textContent=hasKey?'1 / 1 ✓':'0 / 1';livesEl.textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives);bestEl.textContent=best?best+' حركة':'—'}
+function reset(){player={...start};guardIndex=0;moves=0;lives=3;hasKey=false;won=false;over=false;toast.textContent='شخصيتك تبدأ أسفل اليسار. اجمع المفتاح 🔑 ثم ارجع للبوابة 🚪';updateHud();draw()}
+function caught(){lives--;player={...start};if(lives<=0){lives=0;over=true;toast.textContent='انتهت المحاولات! اضغط إعادة المحاولة للبدء من جديد.'}else toast.textContent=`الحارس أمسكك! رجعت للبداية. باقي ${lives} محاولات.`;updateHud();draw()}
 function move(dir){
  if(won||over)return;
- moves++;turns++;
+ moves++;
  const delta={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]}[dir];
  const nx=player.x+delta[0],ny=player.y+delta[1];
- if(isWall(nx,ny)){toast.textContent='هذا جدار! الحركة انحسبت، جرّب طريقاً آخر.';}
- else{player={x:nx,y:ny};toast.textContent='';}
- // Pick up the key as soon as the player enters its tile.
- if(player.x===keyPos.x&&player.y===keyPos.y&&!hasKey){hasKey=true;toast.textContent='ممتاز! حصلت على المفتاح 🔑 ارجع إلى البوابة.'}
- // The patrol advances every four turns. A player can avoid its side lane.
- if(turns-lastGuardMove>=4){guardStep=(guardStep+1)%patrol.length;lastGuardMove=turns;}
- const g=patrol[guardStep];
- if(player.x===g.x&&player.y===g.y){respawn();return;}
- if(player.x===doorPos.x&&player.y===doorPos.y){
-  if(hasKey){won=true;if(!best||moves<best){best=moves;try{localStorage.setItem('goldenKeyBestV2',String(best))}catch(e){}}toast.textContent=`فزت! أنهيت التحدي بـ ${moves} حركة 🏆`}
-  else toast.textContent='البوابة مقفلة! المفتاح الذهبي بعده بالمتاهة.';
+ if(blocked(nx,ny)){toast.textContent='اصطدمت بجدار! الحركة انحسبت؛ جرّب اتجاهاً آخر.'}
+ else{player={x:nx,y:ny};toast.textContent=''}
+ if(player.x===keyPos.x&&player.y===keyPos.y&&!hasKey){hasKey=true;toast.textContent='رائع! المفتاح صار وياك 🔑 ارجع للبوابة أعلى اليسار.'}
+ // The guard patrols the middle corridor every four presses; it never moves onto the player.
+ if(moves%4===0){const next=(guardIndex+1)%patrol.length;const g=patrol[next];if(g.x!==player.x||g.y!==player.y)guardIndex=next;}
+ const guard=patrol[guardIndex];
+ if(player.x===guard.x&&player.y===guard.y){caught();return;}
+ if(player.x===exitPos.x&&player.y===exitPos.y){
+  if(hasKey){won=true;if(!best||moves<best){best=moves;try{localStorage.setItem('goldenKeyBestV3',String(best))}catch(e){}}toast.textContent=`فزت! أنهيت التحدي بـ ${moves} حركة 🏆`}
+  else toast.textContent='البوابة تحتاج المفتاح الذهبي! الطريق للمفتاح مفتوح من الممر السفلي.';
  }
- updateHud();render();
+ updateHud();draw();
 }
-document.querySelectorAll('[data-dir]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();move(btn.dataset.dir)}));
-window.addEventListener('keydown',e=>{const map={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right'};const d=map[e.key];if(d&&!e.repeat){e.preventDefault();move(d)}});
+// Buttons intentionally use reversed directions as part of the challenge.
+document.querySelectorAll('[data-move]').forEach(button=>button.addEventListener('click',event=>{event.preventDefault();move(button.dataset.move)}));
+window.addEventListener('keydown',event=>{
+ const keys={ArrowUp:'down',ArrowDown:'up',ArrowLeft:'right',ArrowRight:'left',w:'down',s:'up',a:'right',d:'left'};
+ const direction=keys[event.key];if(direction&&!event.repeat){event.preventDefault();move(direction)}
+});
 document.getElementById('restart').addEventListener('click',reset);
-document.getElementById('share').addEventListener('click',async()=>{if(!won){toast.textContent='أكمل التحدي أولاً حتى تشارك نتيجتك.';return;}const msg=`🏆 أنهيت تحدّي المفتاح الذهبي بـ ${moves} حركة! تگدر تكسر رقمي؟ ${location.href}`;try{if(navigator.share)await navigator.share({title:'تحدّي المفتاح الذهبي',text:msg});else{await navigator.clipboard.writeText(msg);toast.textContent='تم نسخ نتيجتك للمشاركة.'}}catch(e){if(e.name!=='AbortError')toast.textContent='تعذّرت المشاركة؛ حاول مرة ثانية.'}});
+document.getElementById('share').addEventListener('click',async()=>{
+ if(!won){toast.textContent='اجمع المفتاح وافتح البوابة أولاً حتى تشارك نتيجتك.';return;}
+ const message=`🏆 أنهيت تحدّي المفتاح الذهبي بـ ${moves} حركة! تگدر تكسر رقمي؟ ${location.href}`;
+ try{if(navigator.share)await navigator.share({title:'تحدّي المفتاح الذهبي',text:message});else{await navigator.clipboard.writeText(message);toast.textContent='تم نسخ نتيجتك للمشاركة.'}}
+ catch(error){if(error.name!=='AbortError')toast.textContent='تعذّرت المشاركة؛ حاول مرة ثانية.'}
+});
 reset();
 })();
 </script>
