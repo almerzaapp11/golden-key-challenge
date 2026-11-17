@@ -4,154 +4,148 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#10132d">
-<title>تحدي المفتاح الذهبي | Arcade</title>
+<title>تحدّي المفتاح الذهبي | Arcade</title>
 <style>
-:root{--bg:#0b1025;--panel:#171d3c;--cyan:#5cf4ed;--gold:#ffd166;--pink:#ff6bcb;--white:#f5f7ff}
+:root{--bg:#0b1025;--panel:#171d3c;--cyan:#5cf4ed;--gold:#ffd166;--pink:#ff6bcb;--red:#ff5577;--white:#f5f7ff}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(ellipse at 50% 0%,#25275a 0%,#111632 48%,#090d20 100%);color:var(--white);font-family:Tahoma,Arial,sans-serif}
 body{display:flex;justify-content:center;padding:16px 12px 28px}.app{width:min(100%,620px)}
-header{text-align:center;margin:4px 0 14px} .eyebrow{color:var(--cyan);font-size:12px;letter-spacing:2px;font-weight:bold}
-h1{font-size:clamp(25px,6vw,38px);margin:7px 0 5px;text-shadow:0 0 22px #5cf4ed66}
-.sub{color:#b9c3e8;font-size:13px;line-height:1.7}
-.hud{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0}
-.stat{background:linear-gradient(145deg,#20284d,#141a36);border:1px solid #ffffff18;border-radius:16px;padding:10px 8px;text-align:center;box-shadow:0 8px 24px #0003}
-.stat small{display:block;color:#aab5db;font-size:11px;margin-bottom:5px}.stat strong{font-size:23px;color:var(--gold);font-variant-numeric:tabular-nums}
-.game-shell{padding:10px;border-radius:22px;background:linear-gradient(135deg,#5cf4ed55,#9c72ff55,#ff6bcb44);box-shadow:0 0 35px #5cf4ed20}
-canvas{display:block;width:100%;height:auto;border-radius:15px;background:#111b39;touch-action:none}
-.tip{text-align:center;color:#aeb9df;font-size:12px;margin:10px 0 4px;line-height:1.7}
-.controls{display:grid;grid-template-columns:repeat(3,64px);grid-template-rows:repeat(2,58px);gap:8px;justify-content:center;margin:16px auto 12px;direction:ltr}
-.pad{position:relative;border:1px solid #8efcf055;border-radius:16px;background:linear-gradient(145deg,#29345f,#171e40);color:white;font-size:23px;font-weight:bold;box-shadow:0 5px 0 #090e23,0 0 18px #5cf4ed28;touch-action:manipulation;overflow:hidden}.pad span{display:block;font-size:10px;line-height:1;margin-top:2px;color:#8ffcf3;font-weight:700;letter-spacing:.2px}.pad:after{content:"";position:absolute;inset:-40%;background:linear-gradient(110deg,transparent 35%,#ffffff18 50%,transparent 65%);transform:translateX(-100%);animation:buttonShine 3.8s infinite}@keyframes buttonShine{55%,100%{transform:translateX(100%)}}
+header{text-align:center;margin:4px 0 14px}.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:2px;font-weight:bold}
+h1{font-size:clamp(25px,6vw,38px);margin:7px 0 5px;text-shadow:0 0 22px #5cf4ed66}.sub{color:#b9c3e8;font-size:13px;line-height:1.7}
+.hud{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.stat{background:linear-gradient(145deg,#20284d,#141a36);border:1px solid #ffffff18;border-radius:16px;padding:10px 8px;text-align:center;box-shadow:0 8px 24px #0003;min-width:0}
+.stat small{display:block;color:#aab5db;font-size:11px;margin-bottom:5px}.stat strong{font-size:23px;color:var(--gold);font-variant-numeric:tabular-nums}.stat .hearts{font-size:20px;letter-spacing:1px;white-space:nowrap}
+.game-shell{padding:10px;border-radius:22px;background:linear-gradient(135deg,#5cf4ed55,#9c72ff55,#ff6bcb44);box-shadow:0 0 35px #5cf4ed20}canvas{display:block;width:100%;height:auto;border-radius:15px;background:#111b39;touch-action:none}
+.tip{text-align:center;color:#aeb9df;font-size:12px;margin:10px 0 4px;line-height:1.8}.controls{display:grid;grid-template-columns:repeat(3,64px);grid-template-rows:repeat(2,58px);gap:8px;justify-content:center;margin:16px auto 12px;direction:ltr}
+.pad{position:relative;border:1px solid #8efcf055;border-radius:16px;background:linear-gradient(145deg,#29345f,#171e40);color:white;font-size:23px;font-weight:bold;box-shadow:0 5px 0 #090e23,0 0 18px #5cf4ed28;touch-action:manipulation;overflow:hidden;cursor:pointer}.pad span{display:block;font-size:10px;line-height:1;margin-top:2px;color:#8ffcf3;font-weight:700;letter-spacing:.2px}.pad:after{content:"";position:absolute;inset:-40%;background:linear-gradient(110deg,transparent 35%,#ffffff18 50%,transparent 65%);transform:translateX(-100%);animation:buttonShine 3.8s infinite}@keyframes buttonShine{55%,100%{transform:translateX(100%)}}
 .pad:active{transform:translateY(3px);box-shadow:0 2px 0 #090e23}.up{grid-column:2;grid-row:1}.left{grid-column:1;grid-row:2}.down{grid-column:2;grid-row:2}.right{grid-column:3;grid-row:2}
-.actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:12px 0}
-button.action{border:0;border-radius:14px;padding:12px 17px;font-weight:bold;font-size:14px;cursor:pointer}
-.primary{background:linear-gradient(90deg,#ffd166,#ffad4d);color:#20152a;box-shadow:0 5px 18px #ffd16633}
-.secondary{background:#252d52;color:#eef2ff;border:1px solid #ffffff20!important}
-.note{background:#141a35;border:1px solid #ffffff14;border-radius:15px;padding:12px 14px;color:#c2cbed;font-size:12px;line-height:1.9}
-#toast{min-height:26px;text-align:center;color:var(--cyan);font-weight:bold;font-size:14px;margin:7px 0}
-footer{text-align:center;color:#7783ae;font-size:10px;margin-top:16px}
-@media(max-width:390px){.controls{grid-template-columns:58px 58px 58px;grid-template-rows:54px 54px}.stat strong{font-size:20px}}
+.actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:12px 0}button.action{border:0;border-radius:14px;padding:12px 17px;font-weight:bold;font-size:14px;cursor:pointer}.primary{background:linear-gradient(90deg,#ffd166,#ffad4d);color:#20152a;box-shadow:0 5px 18px #ffd16633}.secondary{background:#252d52;color:#eef2ff;border:1px solid #ffffff20!important}
+.note{background:#141a35;border:1px solid #ffffff14;border-radius:15px;padding:12px 14px;color:#c2cbed;font-size:12px;line-height:1.9}#toast{min-height:26px;text-align:center;color:var(--cyan);font-weight:bold;font-size:14px;margin:7px 0}footer{text-align:center;color:#7783ae;font-size:10px;margin-top:16px}
+@media(max-width:430px){.hud{grid-template-columns:repeat(2,1fr)}}@media(max-width:390px){.controls{grid-template-columns:58px 58px 58px;grid-template-rows:54px 54px}.stat strong{font-size:20px}.stat .hearts{font-size:18px}}
 </style>
 </head>
 <body>
 <main class="app">
-<header>
- <div class="eyebrow">CHALLENGE • LEVEL 01</div>
- <h1>تحدّي المفتاح الذهبي</h1>
- <div class="sub">اجمع المفتاح وافتح البوابة… وحقق أقل عدد حركات!</div>
-</header>
+<header><div class="eyebrow">CHALLENGE • LEVEL 01</div><h1>تحدّي المفتاح الذهبي</h1><div class="sub">اجمع المفتاح، راوغ الحارس، وافتح البوابة بأقل عدد حركات!</div></header>
 <section class="hud">
  <div class="stat"><small>عدد الحركات</small><strong id="moves">0</strong></div>
- <div class="stat"><small>المفتاح</small><strong id="keyState">0 / 1</strong></div>
- <div class="stat"><small>أفضل نتيجة عندك</small><strong id="best">—</strong></div>
+ <div class="stat"><small>المفتاح الذهبي</small><strong id="keyState">0 / 1</strong></div>
+ <div class="stat"><small>المحاولات</small><strong class="hearts" id="lives">❤️❤️❤️</strong></div>
+ <div class="stat"><small>أفضل نتيجة</small><strong id="best">—</strong></div>
 </section>
-<div class="game-shell"><canvas id="game" width="540" height="420" aria-label="لعبة المتاهة"></canvas></div>
-<div class="tip">انتبه! التحكم معكوس بالكامل 😈<br>الأسهم أو الأزرار تحركك بالاتجاه المعاكس.</div>
+<div class="game-shell"><canvas id="game" width="540" height="420" aria-label="متاهة المفتاح الذهبي"></canvas></div>
+<div class="tip">انتبه! التحكم معكوس بالكامل 😈<br>الحارس يتحرك كل ضغطتين… لا تخليه يمسكك!</div>
 <div class="controls" aria-label="أزرار التحكم">
  <button class="pad up" data-dir="up" aria-label="نزول">↑<span>نزول</span></button>
  <button class="pad left" data-dir="left" aria-label="يمين">←<span>يمين</span></button>
  <button class="pad down" data-dir="down" aria-label="صعود">↓<span>صعود</span></button>
  <button class="pad right" data-dir="right" aria-label="يسار">→<span>يسار</span></button>
 </div>
-<div id="toast">ابدأ التحدي… وخلي حركاتك محسوبة!</div>
-<div class="actions">
- <button class="action primary" id="share">🏆 شارك نتيجتك</button>
- <button class="action secondary" id="restart">↻ إعادة المحاولة</button>
-</div>
+<div id="toast">ابدأ التحدي… واحذر الحارس الأحمر!</div>
+<div class="actions"><button class="action primary" id="share">🏆 شارك نتيجتك</button><button class="action secondary" id="restart">↻ إعادة المحاولة</button></div>
 <div class="note">
  <b style="color:#ffd166">قواعد التحدي:</b><br>
- ١. اجمع المفتاح الذهبي أولاً.<br>
- ٢. افتح البوابة بأقل عدد حركات ممكن.<br>
- ٣. شارك نتيجتك بالستوري وتحدّى أصدقاءك.<br>
- <span style="color:#5cf4ed">تلميح:</span> الحركة تُحسب فقط إذا انتقلت إلى خانة صالحة.
+ ١. اجمع المفتاح الذهبي وافتح البوابة.<br>
+ ٢. الحارس الأحمر يتحرك بعد كل ضغطتين؛ لا تصطدم بيه.<br>
+ ٣. عندك ٣ محاولات فقط، والاصطدام يرجعك للبداية.<br>
+ ٤. كل ضغطة تُحسب حركة، حتى لو اصطدمت بجدار.<br>
+ <span style="color:#5cf4ed">التحدي:</span> أنهي المرحلة بأقل عدد حركات وشارك نتيجتك!
 </div>
-<footer>ARCADE MINI CHALLENGE</footer>
+<footer>GOLDEN KEY ARCADE CHALLENGE</footer>
 </main>
 <script>
-(() => {
+(()=>{
+'use strict';
 const canvas=document.getElementById('game'),ctx=canvas.getContext('2d');
 const cols=9,rows=7,cell=60;
 const map=[
-"#########",
-"#.......#",
-"#..##...#",
-"#....#..#",
-"#.#.....#",
-"#.......#",
-"#########"
+ '#########',
+ '#.###...#',
+ '#.#.#.#.#',
+ '#.#.....#',
+ '#.#.###.#',
+ '#.......#',
+ '#########'
 ];
 const start={x:1,y:1},keyPos={x:7,y:1},door={x:7,y:5};
-let player={x:start.x,y:start.y,fromX:start.x,fromY:start.y,drawX:start.x,drawY:start.y,moveT:1},moves=0,hasKey=false,won=false,particles=[],anim=0;
+const guardPath=[{x:4,y:3},{x:5,y:3},{x:6,y:3},{x:7,y:3},{x:6,y:3},{x:5,y:3}];
+let player,guardIndex,guardTick,moves,hasKey,lives,won,gameOver,particles,anim,best;
 const $=id=>document.getElementById(id);
-let best=Number(localStorage.getItem('goldenKeyBest')||0);
-$('best').textContent=best?best:'—';
+best=Number(localStorage.getItem('goldenKeyBest')||0);
+function reset(){
+ player={x:start.x,y:start.y,fromX:start.x,fromY:start.y,drawX:start.x,drawY:start.y,moveT:1};
+ guardIndex=1;guardTick=0;moves=0;hasKey=false;lives=3;won=false;gameOver=false;particles=[];
+ $('toast').textContent='ابدأ التحدي… واحذر الحارس الأحمر!';setHUD();
+}
+function setHUD(){ $('moves').textContent=moves;$('keyState').textContent=hasKey?'1 / 1':'0 / 1';$('lives').textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives);$('best').textContent=best?best:'—'; }
+function roundRect(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
+function burst(x,y,color,count=14){for(let i=0;i<count;i++){let a=Math.PI*2*i/count,s=1+Math.random()*2.5;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,r:2+Math.random()*2,life:30,color})}}
 function draw(){
  const w=canvas.width,h=canvas.height;
  const g=ctx.createLinearGradient(0,0,w,h);g.addColorStop(0,'#18234a');g.addColorStop(.55,'#202050');g.addColorStop(1,'#102d46');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
- // soft background stars
  for(let i=0;i<38;i++){let x=(i*97+23)%w,y=(i*61+17)%h;ctx.fillStyle=`rgba(155,224,255,${.12+((i%4)*.07)})`;ctx.beginPath();ctx.arc(x,y,(i%3)+.7,0,Math.PI*2);ctx.fill()}
  for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
-  let px=x*cell,py=y*cell;
-  if(map[y][x]==='#'){
-   ctx.fillStyle='#10172f';roundRect(px+2,py+2,cell-4,cell-4,10);ctx.fill();
-   ctx.strokeStyle='#34446f';ctx.lineWidth=1.5;ctx.stroke();
-   ctx.fillStyle='rgba(95,244,237,.06)';roundRect(px+7,py+7,cell-14,cell-14,7);ctx.fill();
-  }else{
-   ctx.fillStyle='rgba(255,255,255,.025)';roundRect(px+3,py+3,cell-6,cell-6,12);ctx.fill();
-   ctx.fillStyle='rgba(92,244,237,.08)';ctx.beginPath();ctx.arc(px+cell/2,py+cell/2,2,0,Math.PI*2);ctx.fill();
-  }
+  const px=x*cell,py=y*cell;
+  if(map[y][x]==='#'){ctx.fillStyle='#10172f';roundRect(px+2,py+2,cell-4,cell-4,10);ctx.fill();ctx.strokeStyle='#34446f';ctx.lineWidth=1.5;ctx.stroke();ctx.fillStyle='rgba(95,244,237,.06)';roundRect(px+7,py+7,cell-14,cell-14,7);ctx.fill()}
+  else{ctx.fillStyle='rgba(255,255,255,.025)';roundRect(px+3,py+3,cell-6,cell-6,12);ctx.fill();ctx.fillStyle='rgba(92,244,237,.08)';ctx.beginPath();ctx.arc(px+30,py+30,2,0,Math.PI*2);ctx.fill()}
  }
- // soft moving spotlight follows the hero
+ // The guard's patrol lane glows softly.
+ for(const p of guardPath.slice(0,4)){ctx.fillStyle='rgba(255,75,110,.055)';ctx.beginPath();ctx.arc(p.x*cell+30,p.y*cell+30,21,0,Math.PI*2);ctx.fill()}
  const lx=player.drawX*cell+30,ly=player.drawY*cell+30;
  const halo=ctx.createRadialGradient(lx,ly,4,lx,ly,145);halo.addColorStop(0,'rgba(255,107,203,.22)');halo.addColorStop(.42,'rgba(92,244,237,.10)');halo.addColorStop(1,'rgba(92,244,237,0)');ctx.fillStyle=halo;ctx.fillRect(0,0,w,h);
- // exit portal
- let dx=door.x*cell+30,dy=door.y*cell+30;
- ctx.save();ctx.shadowBlur=hasKey?28:10;ctx.shadowColor=hasKey?'#5cf4ed':'#8b75ff';
- ctx.strokeStyle=hasKey?'#5cf4ed':'#8b75ff';ctx.lineWidth=5;ctx.beginPath();ctx.ellipse(dx,dy,17,24,0,0,Math.PI*2);ctx.stroke();
- ctx.fillStyle=hasKey?'rgba(92,244,237,.2)':'rgba(139,117,255,.12)';ctx.beginPath();ctx.ellipse(dx,dy,12,19,0,0,Math.PI*2);ctx.fill();ctx.restore();
- // golden key
- if(!hasKey){let kx=keyPos.x*cell+30,ky=keyPos.y*cell+30+Math.sin(anim/10)*3;
-  ctx.save();ctx.translate(kx,ky);ctx.rotate(-.35);ctx.shadowBlur=22;ctx.shadowColor='#ffd166';ctx.strokeStyle='#ffd166';ctx.lineWidth=6;ctx.beginPath();ctx.arc(-5,-5,9,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.moveTo(3,2);ctx.lineTo(19,18);ctx.lineTo(14,23);ctx.moveTo(12,11);ctx.lineTo(7,16);ctx.stroke();ctx.restore();}
- // particles
+ // Exit portal
+ let dx=door.x*cell+30,dy=door.y*cell+30;ctx.save();ctx.shadowBlur=hasKey?28:10;ctx.shadowColor=hasKey?'#5cf4ed':'#8b75ff';ctx.strokeStyle=hasKey?'#5cf4ed':'#8b75ff';ctx.lineWidth=5;ctx.beginPath();ctx.ellipse(dx,dy,17,24,0,0,Math.PI*2);ctx.stroke();ctx.fillStyle=hasKey?'rgba(92,244,237,.2)':'rgba(139,117,255,.12)';ctx.beginPath();ctx.ellipse(dx,dy,12,19,0,0,Math.PI*2);ctx.fill();ctx.restore();
+ // Golden key
+ if(!hasKey){let kx=keyPos.x*cell+30,ky=keyPos.y*cell+30+Math.sin(anim/10)*3;ctx.save();ctx.translate(kx,ky);ctx.rotate(-.35);ctx.shadowBlur=22;ctx.shadowColor='#ffd166';ctx.strokeStyle='#ffd166';ctx.lineWidth=6;ctx.beginPath();ctx.arc(-5,-5,9,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.moveTo(3,2);ctx.lineTo(19,18);ctx.lineTo(14,23);ctx.moveTo(12,11);ctx.lineTo(7,16);ctx.stroke();ctx.restore()}
+ // Patrol guard
+ const gp=guardPath[guardIndex],gx=gp.x*cell+30,gy=gp.y*cell+30+Math.sin(anim/5)*2;
+ ctx.save();ctx.shadowBlur=24;ctx.shadowColor='#ff4268';ctx.fillStyle='#ff4268';ctx.beginPath();ctx.arc(gx,gy,17,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#4b1028';ctx.beginPath();ctx.arc(gx-6,gy-3,3,0,Math.PI*2);ctx.arc(gx+6,gy-3,3,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#4b1028';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(gx,gy+5,6,.1,Math.PI-.1);ctx.stroke();ctx.restore();
+ // Particles
  particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life/30);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1});
- // player shadow + character
+ // Hero and orbit sparks
  const cx=player.drawX*cell+30,cy=player.drawY*cell+30+Math.sin(anim/7)*2;
- // energetic orbit sparks around the moving hero
- for(let j=0;j<4;j++){const a=anim*.055+j*Math.PI/2;ctx.fillStyle=j%2?'#5cf4ed':'#ffd166';ctx.shadowBlur=13;ctx.shadowColor=ctx.fillStyle;ctx.beginPath();ctx.arc(cx+Math.cos(a)*23,cy+Math.sin(a)*19,2.2,0,Math.PI*2);ctx.fill();}ctx.shadowBlur=0;
+ for(let j=0;j<4;j++){const a=anim*.055+j*Math.PI/2;ctx.fillStyle=j%2?'#5cf4ed':'#ffd166';ctx.shadowBlur=13;ctx.shadowColor=ctx.fillStyle;ctx.beginPath();ctx.arc(cx+Math.cos(a)*23,cy+Math.sin(a)*19,2.2,0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;
  ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(cx,cy+18,17,6,0,0,Math.PI*2);ctx.fill();ctx.save();ctx.globalAlpha=.45;ctx.shadowBlur=22;ctx.shadowColor='#5cf4ed';ctx.fillStyle='#5cf4ed';ctx.beginPath();ctx.ellipse(cx,cy+17,13,4,0,0,Math.PI*2);ctx.fill();ctx.restore();
- ctx.save();ctx.shadowBlur=20;ctx.shadowColor='#ff6bcb';ctx.fillStyle='#ff6bcb';roundRect(cx-14,cy-17,28,31,11);ctx.fill();
- ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(cx-5,cy-6,3.5,0,Math.PI*2);ctx.arc(cx+5,cy-6,3.5,0,Math.PI*2);ctx.fill();
- ctx.fillStyle='#25234b';ctx.beginPath();ctx.arc(cx-5,cy-6,1.5,0,Math.PI*2);ctx.arc(cx+5,cy-6,1.5,0,Math.PI*2);ctx.fill();
- ctx.strokeStyle='#7b285f';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy+1,4,.15,Math.PI-.15);ctx.stroke();ctx.restore();
+ ctx.save();ctx.shadowBlur=20;ctx.shadowColor='#ff6bcb';ctx.fillStyle='#ff6bcb';roundRect(cx-14,cy-17,28,31,11);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(cx-5,cy-6,3.5,0,Math.PI*2);ctx.arc(cx+5,cy-6,3.5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#25234b';ctx.beginPath();ctx.arc(cx-5,cy-6,1.5,0,Math.PI*2);ctx.arc(cx+5,cy-6,1.5,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#7b285f';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy+1,4,.15,Math.PI-.15);ctx.stroke();ctx.restore();
+ if(gameOver||won){ctx.fillStyle='rgba(5,8,25,.66)';ctx.fillRect(0,0,w,h);ctx.textAlign='center';ctx.fillStyle=won?'#5cf4ed':'#ff6685';ctx.font='bold 34px Tahoma';ctx.fillText(won?'فزت بالتحدي!':'انتهت المحاولات',w/2,h/2-4);ctx.fillStyle='#fff';ctx.font='bold 17px Tahoma';ctx.fillText(won?`أنهيته بـ ${moves} حركة`:'اضغط إعادة المحاولة',w/2,h/2+32)}
 }
-function roundRect(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
-function burst(x,y,color){for(let i=0;i<14;i++){let a=Math.PI*2*i/14,s=1+Math.random()*2;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,r:2+Math.random()*2,life:30,color})}}
-function update(){anim++;if(player.moveT<1){player.moveT=Math.min(1,player.moveT+.14);const t=1-Math.pow(1-player.moveT,3);player.drawX=player.fromX+(player.x-player.fromX)*t;player.drawY=player.fromY+(player.y-player.fromY)*t;}else{player.drawX=player.x;player.drawY=player.y;}particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.life--});particles=particles.filter(p=>p.life>0);draw();requestAnimationFrame(update)}
-function setHUD(){$('moves').textContent=moves;$('keyState').textContent=hasKey?'1 / 1':'0 / 1'}
+function update(){anim++;if(player.moveT<1){player.moveT=Math.min(1,player.moveT+.14);const t=1-Math.pow(1-player.moveT,3);player.drawX=player.fromX+(player.x-player.fromX)*t;player.drawY=player.fromY+(player.y-player.fromY)*t}else{player.drawX=player.x;player.drawY=player.y}particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.life--});particles=particles.filter(p=>p.life>0);draw();requestAnimationFrame(update)}
+function hitGuard(){
+ lives--;burst(player.x*cell+30,player.y*cell+30,'#ff5577',22);player.x=start.x;player.y=start.y;player.fromX=start.x;player.fromY=start.y;player.drawX=start.x;player.drawY=start.y;player.moveT=1;
+ if(lives<=0){lives=0;gameOver=true;$('toast').textContent='خلصت محاولاتك! جرّب من جديد 💥'}else{$('toast').textContent=`الحارس مسكك! رجعت للبداية… باقي ${lives} محاولات ❤️`}
+ setHUD();
+}
 function move(dir){
- if(won)return;
- // Deliberately reversed controls:
+ if(won||gameOver)return;
+ moves++; // Every press counts, even a press into a wall.
  const delta={left:{x:1,y:0},right:{x:-1,y:0},up:{x:0,y:1},down:{x:0,y:-1}}[dir];
  const nx=player.x+delta.x,ny=player.y+delta.y;
- if(nx<0||nx>=cols||ny<0||ny>=rows||map[ny][nx]==='#')return;
- player.fromX=player.drawX;player.fromY=player.drawY;player.x=nx;player.y=ny;player.moveT=0;moves++;burst(player.fromX*cell+30,player.fromY*cell+30,'#ff6bcb');setHUD();
- if(player.x===keyPos.x&&player.y===keyPos.y&&!hasKey){hasKey=true;burst(nx*cell+30,ny*cell+30,'#ffd166');$('toast').textContent='حصلت على المفتاح! البوابة تنتظرك ✨';setHUD()}
- if(player.x===door.x&&player.y===door.y){if(hasKey){won=true;burst(nx*cell+30,ny*cell+30,'#5cf4ed');$('toast').textContent=`فزت بالتحدي في ${moves} حركة! 🏆`;if(!best||moves<best){best=moves;localStorage.setItem('goldenKeyBest',best);$('best').textContent=best}}else{$('toast').textContent='البوابة مقفلة… دور على المفتاح الذهبي 🔑'}}
+ if(nx<0||nx>=cols||ny<0||ny>=rows||map[ny][nx]==='#'){
+  burst(player.x*cell+30,player.y*cell+30,'#ff5577',5);$('toast').textContent='هذا جدار! الضغطة انحسبت… جرّب طريق ثاني.';
+ }else{
+  player.fromX=player.drawX;player.fromY=player.drawY;player.x=nx;player.y=ny;player.moveT=0;burst(player.fromX*cell+30,player.fromY*cell+30,'#ff6bcb',8);
+  if(player.x===keyPos.x&&player.y===keyPos.y&&!hasKey){hasKey=true;burst(nx*cell+30,ny*cell+30,'#ffd166',24);$('toast').textContent='حصلت على المفتاح! هسه افتح البوابة وراقب الحارس 🔑'}
+  if(player.x===door.x&&player.y===door.y){if(hasKey){won=true;burst(nx*cell+30,ny*cell+30,'#5cf4ed',25);$('toast').textContent=`فزت بالتحدي في ${moves} حركة! 🏆`;if(!best||moves<best){best=moves;localStorage.setItem('goldenKeyBest',best)}}else{$('toast').textContent='البوابة مقفلة… دور على المفتاح الذهبي 🔑'}}
+ }
+ // Collision is checked before and after the guard's turn.
+ let gp=guardPath[guardIndex];if(!won&&player.x===gp.x&&player.y===gp.y)hitGuard();
+ // The guard advances once every two button presses, including blocked presses.
+ guardTick++;if(guardTick>=2){guardTick=0;guardIndex=(guardIndex+1)%guardPath.length;}
+ gp=guardPath[guardIndex];if(!won&&!gameOver&&player.x===gp.x&&player.y===gp.y)hitGuard();
+ if(best&&won)$('toast').textContent=`فزت بـ ${moves} حركة! أفضل نتيجة: ${best} 🏆`;
+ setHUD();
 }
-function restart(){player={x:start.x,y:start.y,fromX:start.x,fromY:start.y,drawX:start.x,drawY:start.y,moveT:1};moves=0;hasKey=false;won=false;particles=[];$('toast').textContent='محاولة جديدة! تذكّر أن الأزرار معكوسة 😈';setHUD()}
-document.querySelectorAll('.pad').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();move(b.dataset.dir)})});
-window.addEventListener('keydown',e=>{const keys={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down',a:'left',d:'right',w:'up',s:'down'};if(keys[e.key]){e.preventDefault();move(keys[e.key])}});
+function restart(){reset()}
+document.querySelectorAll('.pad').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();move(b.dataset.dir)}));
+window.addEventListener('keydown',e=>{const keys={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down',a:'left',d:'right',w:'up',s:'down'};if(keys[e.key]&&!e.repeat){e.preventDefault();move(keys[e.key])}});
 $('restart').addEventListener('click',restart);
 $('share').addEventListener('click',async()=>{
  if(!won){$('toast').textContent='كمّل المرحلة أولاً حتى تشارك نتيجتك!';return}
- const text=`🏆 أنهيت تحدّي المفتاح الذهبي بـ ${moves} حركة!\nتگدر تكسر رقمي؟ جرّب التحدي!`;
- try{
-  const blob=await new Promise(resolve=>{const c=document.createElement('canvas');c.width=900;c.height=500;const x=c.getContext('2d');let gr=x.createLinearGradient(0,0,900,500);gr.addColorStop(0,'#171c45');gr.addColorStop(1,'#123d50');x.fillStyle=gr;x.fillRect(0,0,900,500);x.fillStyle='#5cf4ed';x.font='bold 32px Arial';x.textAlign='center';x.fillText('GOLDEN KEY CHALLENGE',450,105);x.fillStyle='#fff';x.font='bold 58px Tahoma';x.fillText('تحدّي المفتاح الذهبي',450,205);x.fillStyle='#ffd166';x.font='bold 78px Arial';x.fillText(moves+' MOVES',450,325);x.fillStyle='#d4defa';x.font='26px Tahoma';x.fillText('تگدر تجيب أقل؟',450,405);c.toBlob(resolve,'image/png')});
-  const file=new File([blob],'golden-key-result.png',{type:'image/png'});
-  if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({title:'تحدّي المفتاح الذهبي',text,files:[file]})}
-  else if(navigator.share){await navigator.share({title:'تحدّي المفتاح الذهبي',text})}
-  else{await navigator.clipboard.writeText(text+'\n'+location.href);$('toast').textContent='نسخت نتيجتك! الصقها بالستوري أو أرسلها لأصدقائك.'}
- }catch(err){if(err.name!=='AbortError'){$('toast').textContent='ما تمّت المشاركة. جرّب مرة ثانية.'}}
+ const shareText=`🏆 أنهيت تحدّي المفتاح الذهبي بـ ${moves} حركة!\nتگدر تكسر رقمي؟ جرّب التحدي!`;
+ try{const blob=await new Promise(resolve=>{const c=document.createElement('canvas');c.width=900;c.height=500;const x=c.getContext('2d');const gr=x.createLinearGradient(0,0,900,500);gr.addColorStop(0,'#171c45');gr.addColorStop(1,'#123d50');x.fillStyle=gr;x.fillRect(0,0,900,500);x.textAlign='center';x.fillStyle='#5cf4ed';x.font='bold 32px Arial';x.fillText('GOLDEN KEY CHALLENGE',450,105);x.fillStyle='#fff';x.font='bold 58px Tahoma';x.fillText('تحدّي المفتاح الذهبي',450,205);x.fillStyle='#ffd166';x.font='bold 78px Arial';x.fillText(moves+' MOVES',450,325);x.fillStyle='#d4defa';x.font='26px Tahoma';x.fillText('تگدر تجيب أقل؟',450,405);c.toBlob(resolve,'image/png')});
+ const file=new File([blob],'golden-key-result.png',{type:'image/png'});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({title:'تحدّي المفتاح الذهبي',text:shareText,files:[file]})}else if(navigator.share){await navigator.share({title:'تحدّي المفتاح الذهبي',text:shareText})}else{await navigator.clipboard.writeText(shareText+'\n'+location.href);$('toast').textContent='نسخت نتيجتك! الصقها بالستوري أو أرسلها لأصدقائك.'}
+ }catch(err){if(err.name!=='AbortError')$('toast').textContent='ما تمّت المشاركة. جرّب مرة ثانية.'}
 });
-setHUD();update();
+reset();update();
 })();
 </script>
-</body></html>
+</body>
+</html>
